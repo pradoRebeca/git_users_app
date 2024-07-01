@@ -26,6 +26,33 @@ class AppTheme {
             bodySmall: TextStyle(fontSize: 12),
             bodyMedium: TextStyle(fontSize: 14),
             bodyLarge: TextStyle(fontSize: 16)),
-        iconTheme: const IconThemeData(color: darkPurple));
+        iconTheme: const IconThemeData(color: darkPurple),
+        inputDecorationTheme: InputDecorationTheme(
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: darkGrey, width: 1.5),
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          border: OutlineInputBorder(
+            borderSide: const BorderSide(color: darkGrey, width: 1.5),
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ButtonStyle(
+          textStyle: WidgetStateProperty.resolveWith<TextStyle>(
+            (states) => const TextStyle(color: Colors.white),
+          ),
+          backgroundColor: WidgetStateProperty.resolveWith<Color>(
+            (states) => darkPurple,
+
+            // (Set<WidgetState> states) {
+            //   if (states.contains(WidgetState.pressed)) {
+            //     return Colors.green; // Cor quando pressionado
+            //   }
+            //   // Cor padrão quando não pressionado
+            //   return darkPurple;
+            // },
+          ),
+        )));
   }
 }

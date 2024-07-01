@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:git_users_app/layers/presentation/controller/home_controller.dart';
 
-class Home extends StatelessWidget {
-  Home({super.key});
+class HomeScreen extends StatelessWidget {
+  HomeScreen({super.key});
 
   final HomeController _controller = Get.put(HomeController());
   final String pathImageLogo = 'assets/images/logo';

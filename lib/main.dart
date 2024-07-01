@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:git_users_app/theme/app_theme.dart';
-import 'package:git_users_app/layers/presentation/views/screens/home.dart';
+import 'package:git_users_app/layers/presentation/views/screens/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Git Users App',
       theme: AppTheme.theme,
-      home: Home(),
+      home: HomeScreen(),
     );
   }
 }

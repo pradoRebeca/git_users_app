@@ -10,7 +10,7 @@ class HomeController extends GetxController {
     ScreenEntity(
         widget: const SearchScreen(), icon: Icons.search, title: 'Pesquisar'),
     ScreenEntity(
-        widget: const SearchScreen(), icon: Icons.search, title: 'Histórico')
+        widget: const SearchScreen(), icon: Icons.history, title: 'Histórico')
   ];
 
   List<ScreenEntity> get listScreens => _screens;

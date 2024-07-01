@@ -5,6 +5,7 @@ import 'package:git_users_app/layers/presentation/views/screens/search_screen.da
 
 class HomeController extends GetxController {
   final _selectedIndex = 0.obs;
+
   final List<ScreenEntity> _screens = [
     ScreenEntity(
         widget: const SearchScreen(), icon: Icons.search, title: 'Pesquisar'),
@@ -18,5 +19,13 @@ class HomeController extends GetxController {
 
   int get getSelectedIndex => _selectedIndex.value;
 
-  void setSelectedIndex(index) => _selectedIndex.value = index;
+  void setSelectedIndex(index) {
+    if (index >= 0 && index < _screens.length) {
+      _selectedIndex.value = index;
+
+      return;
+    }
+
+    _selectedIndex.value = 0;
+  }
 }

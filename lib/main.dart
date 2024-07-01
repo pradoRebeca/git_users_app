@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:git_users_app/layers/presentation/home.dart';
+import 'package:git_users_app/layers/presentation/theme/app_theme.dart';
+import 'package:git_users_app/layers/presentation/views/screens/home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,8 +11,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Flutter Demo',
+    return MaterialApp(
+      title: 'Git Users App',
+      theme: AppTheme.theme,
       home: Home(),
     );
   }

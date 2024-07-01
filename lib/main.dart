@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:git_users_app/layers/presentation/theme/app_theme.dart';
+import 'package:git_users_app/theme/app_theme.dart';
 import 'package:git_users_app/layers/presentation/views/screens/home.dart';
 
 void main() {

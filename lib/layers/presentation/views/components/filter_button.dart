@@ -9,6 +9,7 @@ class FilterButton extends StatelessWidget {
     return ElevatedButton(
         onPressed: () {
           showModalBottomSheet(
+            isScrollControlled: true,
             context: context,
             builder: (context) => const FilterBottomSheet(),
           );
@@ -18,7 +19,6 @@ class FilterButton extends StatelessWidget {
           children: [
             const Icon(
               Icons.filter_list,
-              color: Colors.white,
               size: 20,
             ),
             Padding(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:git_users_app/layers/domain/models/entities/screen_entity.dart';
+import 'package:git_users_app/layers/presentation/views/screens/history_screen.dart';
 import 'package:git_users_app/layers/presentation/views/screens/search_screen.dart';
 
 class HomeController extends GetxController {
@@ -10,7 +11,7 @@ class HomeController extends GetxController {
     ScreenEntity(
         widget: const SearchScreen(), icon: Icons.search, title: 'Pesquisar'),
     ScreenEntity(
-        widget: const SearchScreen(), icon: Icons.history, title: 'Histórico')
+        widget: const HistoryScreen(), icon: Icons.history, title: 'Histórico')
   ];
 
   List<ScreenEntity> get listScreens => _screens;

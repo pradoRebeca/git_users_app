@@ -29,31 +29,34 @@ class AppTheme {
             bodyLarge: TextStyle(fontSize: 16)),
         iconTheme: const IconThemeData(color: darkPurple),
         inputDecorationTheme: InputDecorationTheme(
+          enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: darkGrey, width: 1.0),
+              borderRadius: BorderRadius.all(Radius.circular(8.0))),
           focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: darkGrey, width: 1),
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          border: OutlineInputBorder(
             borderSide: const BorderSide(color: darkGrey, width: 1),
             borderRadius: BorderRadius.circular(8.0),
           ),
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
             style: ButtonStyle(
-          textStyle: WidgetStateProperty.resolveWith<TextStyle>(
-            (states) => const TextStyle(color: Colors.white),
-          ),
-          backgroundColor: WidgetStateProperty.resolveWith<Color>(
-            // (states) => darkPurple,
-
-            (Set<WidgetState> states) {
-              if (states.contains(WidgetState.pressed)) {
-                return lightGrey; // Cor quando pressionado
-              }
-              // Cor padrão quando não pressionado
-              return darkPurple;
-            },
-          ),
-        )));
+                foregroundColor: WidgetStateProperty.resolveWith<Color>(
+                  (states) => Colors.white,
+                ),
+                textStyle: WidgetStateProperty.resolveWith<TextStyle>(
+                  (states) => const TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
+                backgroundColor: WidgetStateProperty.resolveWith<Color>(
+                  (Set<WidgetState> states) {
+                    if (states.contains(WidgetState.pressed)) {
+                      return lightGrey;
+                    }
+                    return darkPurple;
+                  },
+                ),
+                iconColor: WidgetStateProperty.resolveWith<Color>(
+                  (states) => Colors.white,
+                ))));
   }
 }

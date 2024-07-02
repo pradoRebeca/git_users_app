@@ -18,8 +18,9 @@ class ProfileCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(15),
             border: Border.all(
                 color: Theme.of(context).colorScheme.onPrimaryContainer,
-                width: 1.5)),
+                width: 1)),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
@@ -27,70 +28,102 @@ class ProfileCard extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(right: 8.0),
-                  child: ImageProfileCard(urlImage: user.avatarUrl,),
+                  child: ImageProfileCard(
+                    urlImage: user.avatarUrl,
+                  ),
                 ),
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    if (user.name != null && user.name!.isNotEmpty)
+                Flexible(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (user.name != null && user.name!.isNotEmpty)
+                        Text(
+                          user.name!,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
                       Text(
-                        user.name!,
-                        style: Theme.of(context).textTheme.bodyMedium,
+                        user.userLogin,
+                        style: Theme.of(context).textTheme.bodyMedium?.merge(
+                            TextStyle(
+                                color: Theme.of(context).colorScheme.primary)),
                       ),
-                    Text(
-                      user.userLogin,
-                      style: Theme.of(context).textTheme.bodyMedium?.merge(
-                          TextStyle(
-                              color: Theme.of(context).colorScheme.primary)),
-                    ),
-                  ],
+                    ],
+                  ),
                 )
               ],
             ),
             if (user.resume != null && user.resume!.isNotEmpty)
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                padding: const EdgeInsets.only(top: 10.0),
                 child: Text(user.resume!,
                     maxLines: 3, overflow: TextOverflow.ellipsis),
               ),
             Wrap(
               direction: Axis.horizontal,
-              spacing: 18,
+              // spacing: 18,
               children: [
-                if (user.location != null && user.repositories!.isNotEmpty)
-                  Text(user.location!),
-                if (user.repositories != null && user.repositories!.isNotEmpty)
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 5.0),
-                        child: Icon(
-                          Icons.folder_copy,
-                          size: 15,
+                if (user.location != null && user.location!.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10, right: 18),
+                    child: Text(
+                      user.location!,
+                      style: TextStyle(
                           color:
-                              Theme.of(context).colorScheme.onPrimaryContainer,
+                              Theme.of(context).colorScheme.onPrimaryContainer),
+                    ),
+                  ),
+                if (user.repositories != null && user.repositories!.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10.0, right: 18),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 5.0),
+                          child: Icon(
+                            Icons.folder_copy,
+                            size: 15,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onPrimaryContainer,
+                          ),
                         ),
-                      ),
-                      Text(user.repositories!)
-                    ],
+                        Text(
+                          user.repositories!,
+                          style: TextStyle(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onPrimaryContainer),
+                        )
+                      ],
+                    ),
                   ),
                 if (user.followers != null && user.followers!.isNotEmpty)
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 5.0),
-                        child: Icon(
-                          Icons.group,
-                          size: 15,
-                          color:
-                              Theme.of(context).colorScheme.onPrimaryContainer,
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 5.0),
+                          child: Icon(
+                            Icons.group,
+                            size: 15,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onPrimaryContainer,
+                          ),
                         ),
-                      ),
-                      Text(user.followers!)
-                    ],
+                        Text(
+                          user.followers!,
+                          style: TextStyle(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onPrimaryContainer),
+                        )
+                      ],
+                    ),
                   ),
               ],
             )

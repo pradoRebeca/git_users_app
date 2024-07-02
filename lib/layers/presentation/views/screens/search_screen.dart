@@ -30,11 +30,11 @@ class SearchScreen extends StatelessWidget {
             itemCount: 4,
             itemBuilder: (context, index) => ProfileCard(
               user: UserDto(
-                  name: 'rebeca prado',
-                  followers: '',
+                  name: 'Rebeca Prado',
+                  followers: '17',
                   location: '',
-                  repositories: '',
-                  resume: 'eeeeeeeeeeeeeee',
+                  repositories: '10',
+                  resume: 'Técnica em Desenvolvimento de Sistemas - Senai',
                   avatarUrl:
                       'https://avatars.githubusercontent.com/u/89099816?v=4',
                   userLogin: 'pradoRebeca'),

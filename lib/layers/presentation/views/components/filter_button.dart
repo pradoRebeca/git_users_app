@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:git_users_app/layers/presentation/views/components/filter_bottom_sheet.dart';
 
 class FilterButton extends StatelessWidget {
   const FilterButton({super.key});
@@ -6,7 +7,12 @@ class FilterButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          showModalBottomSheet(
+            context: context,
+            builder: (context) => const FilterBottomSheet(),
+          );
+        },
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [

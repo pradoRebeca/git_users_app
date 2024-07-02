@@ -12,7 +12,7 @@ class ImageProfileCard extends StatelessWidget {
         width: 45,
         height: 45,
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.onPrimaryContainer,
+          color: Theme.of(context).colorScheme.secondary,
         ),
         child: Image.network(
           urlImage,
@@ -23,20 +23,25 @@ class ImageProfileCard extends StatelessWidget {
               return child;
             }
             return Center(
-              child: CircularProgressIndicator(
-                value: loadingProgress.expectedTotalBytes != null
-                    ? loadingProgress.cumulativeBytesLoaded /
-                        loadingProgress.expectedTotalBytes!
-                    : null,
+              child: SizedBox(
+                height: 20,
+                width: 20,
+                child: CircularProgressIndicator(
+                  value: loadingProgress.expectedTotalBytes != null
+                      ? loadingProgress.cumulativeBytesLoaded /
+                          loadingProgress.expectedTotalBytes!
+                      : null,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
               ),
             );
           },
           errorBuilder:
               (BuildContext context, Object error, StackTrace? stackTrace) {
-            return const Center(
+            return Center(
               child: Icon(
                 Icons.person,
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.primary,
               ),
             );
           },

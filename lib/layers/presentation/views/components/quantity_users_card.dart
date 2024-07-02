@@ -14,7 +14,9 @@ class QuantityUsersCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primary,
+          border: Border.all(
+              color: Theme.of(context).colorScheme.onPrimaryContainer,
+              width: 1),
           borderRadius: BorderRadius.circular(20)),
       // height: 30,
       child: Row(
@@ -23,24 +25,20 @@ class QuantityUsersCard extends StatelessWidget {
         children: [
           Text(
             'Usuários',
-            style: Theme.of(context)
-                .textTheme
-                .bodyMedium
-                ?.merge(const TextStyle(color: Colors.white)),
+            style: Theme.of(context).textTheme.bodyMedium?.merge(TextStyle(
+                color: Theme.of(context).colorScheme.onPrimaryContainer)),
           ),
-          const Padding(
-            padding: EdgeInsets.only(left: 10.0, right: 2),
+          Padding(
+            padding: const EdgeInsets.only(left: 10.0, right: 2),
             child: Icon(
               Icons.group_rounded,
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.onPrimaryContainer,
               size: 20,
             ),
           ),
           Text(quantityUsers.toString(),
-              style: Theme.of(context)
-                  .textTheme
-                  .bodySmall
-                  ?.merge(const TextStyle(color: Colors.white)))
+              style: Theme.of(context).textTheme.bodySmall?.merge(TextStyle(
+                  color: Theme.of(context).colorScheme.onPrimaryContainer)))
         ],
       ),
     );

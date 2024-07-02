@@ -15,13 +15,14 @@ class AppTheme {
         colorScheme: const ColorScheme(
             brightness: Brightness.light,
             primary: darkPurple,
-            onPrimary: darkGrey,
+            onPrimary: lightBlack,
             secondary: lightPurple,
             onSecondary: lightBlack,
             error: error,
             onError: error,
             surface: Colors.white,
-            onSurface: lightBlack),
+            onSurface: lightBlack, 
+            onPrimaryContainer: darkGrey ),
         textTheme: const TextTheme(
             bodySmall: TextStyle(fontSize: 12),
             bodyMedium: TextStyle(fontSize: 14),

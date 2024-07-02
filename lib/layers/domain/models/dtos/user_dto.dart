@@ -8,13 +8,13 @@ class UserDto {
   final String? repositories;
 
   UserDto(
-      {required this.name,
+      {this.name,
       required this.userLogin,
-      required this.resume,
+      this.resume,
       required this.avatarUrl,
-      required this.location,
-      required this.followers,
-      required this.repositories});
+      this.location,
+      this.followers,
+      this.repositories});
 
   factory UserDto.fromMap(Map map) => UserDto(
       name: map['name'],

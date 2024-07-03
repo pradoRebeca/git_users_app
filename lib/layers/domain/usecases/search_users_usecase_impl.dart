@@ -8,9 +8,9 @@ class SearchUsersUsecaseImpl implements SearchUsersUsecase {
   final SearchUsersRepository _searchUsersRepository;
 
   @override
-  Future<ResponsePresentation> call() async {
+  Future<ResponsePresentation> call(String search) async {
     try {
-      var response = await _searchUsersRepository('');
+      var response = await _searchUsersRepository(search);
       return ResponsePresentation(success: true, body: response);
     } catch (error) {
       return ResponsePresentation(success: false, message: error.toString());

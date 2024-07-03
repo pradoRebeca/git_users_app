@@ -5,12 +5,13 @@ import 'package:git_users_app/layers/presentation/controller/home_controller.dar
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
-  final HomeController _controller = Get.put(HomeController());
+  final HomeController _controller = Get.find<HomeController>();
   final String pathImageLogo = 'assets/images/logo';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         leading: Padding(
           padding: const EdgeInsets.all(12.0),

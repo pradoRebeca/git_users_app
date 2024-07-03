@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:git_users_app/layers/domain/models/entities/screen_entity.dart';
 import 'package:git_users_app/layers/presentation/views/screens/history_screen.dart';
-import 'package:git_users_app/layers/presentation/views/screens/search_screen.dart';
+import 'package:git_users_app/layers/presentation/views/screens/search_user_screen.dart';
 
 class HomeController extends GetxController {
   final _selectedIndex = 0.obs;
 
   final List<ScreenEntity> _screens = [
     ScreenEntity(
-        widget: const SearchScreen(), icon: Icons.search, title: 'Pesquisar'),
+        widget: SearchScreen(), icon: Icons.search, title: 'Pesquisar'),
     ScreenEntity(
-        widget: const HistoryScreen(), icon: Icons.history, title: 'Histórico')
+        widget: const HistoryScreen(), icon: Icons.history, title: 'Histórico'),
   ];
 
   List<ScreenEntity> get listScreens => _screens;

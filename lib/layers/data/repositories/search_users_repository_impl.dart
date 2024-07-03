@@ -10,9 +10,9 @@ class SearchUsersRepositoryImpl implements SearchUsersRepository {
   @override
   Future<List<UserDto>> call(String search) async {
     try {
-      var response = await _searchUsersDatasource(search);
+      var response = await _searchUsersDatasource('/users?page=1&q=$search');
 
-      List<Map<String, dynamic>> data = response['items'];
+      var data = response['items'];
 
       List<UserDto> listUsers = [];
 

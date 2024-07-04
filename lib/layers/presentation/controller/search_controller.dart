@@ -14,13 +14,17 @@ class SearchUserController extends GetxController {
     super.onInit();
     debounce(searchQuery, (String query) {
       if (query.isNotEmpty) {
-        getUsers(query);
+        getUsers();
       }
-    }, time: const Duration(milliseconds: 600));
+    }, time: const Duration(milliseconds: 500));
   }
 
-  Future<void> getUsers(String search) async {
-    var response = await _searchUsersUsecase(search);
+  void search(String search) {
+    searchQuery.value = search;
+  }
+
+  Future<void> getUsers() async {
+    var response = await _searchUsersUsecase(searchQuery.value);
 
     if (!response.success) {
       return;

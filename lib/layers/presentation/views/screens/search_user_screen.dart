@@ -19,7 +19,9 @@ class SearchScreen extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        title: const TittleCard(title: 'Search users',),
+        title: const TittleCard(
+          title: 'Search users',
+        ),
         leading: const LogoImage(),
         actions: [
           IconButton(
@@ -47,9 +49,8 @@ class SearchScreen extends StatelessWidget {
             Padding(
                 padding: const EdgeInsets.only(top: 20.0, bottom: 30),
                 child: SearchInput(
-                  onSearchClick: (String search) async {
-                    await searchUserController.getUsers(search);
-                  },
+                  onSearchClick: (String search) =>
+                      searchUserController.search(search),
                 )),
             const DividerLine(),
             Expanded(

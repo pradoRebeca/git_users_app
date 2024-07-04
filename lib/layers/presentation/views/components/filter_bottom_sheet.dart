@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:git_users_app/layers/presentation/views/components/divider_line.dart';
 import 'package:git_users_app/layers/presentation/views/components/filter_input.dart';
 
 class FilterBottomSheet extends StatelessWidget {
@@ -21,13 +22,8 @@ class FilterBottomSheet extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('Filtro', style: Theme.of(context).textTheme.bodyLarge),
-                Padding(
-                  padding: const EdgeInsets.only(top: 12.0),
-                  child: Container(
-                    color: Theme.of(context).colorScheme.onPrimaryContainer,
-                    height: 1.5,
-                  ),
-                ),
+                const Padding(
+                    padding: EdgeInsets.only(top: 12.0), child: DividerLine()),
                 Expanded(
                     child: ListView(
                   children: [

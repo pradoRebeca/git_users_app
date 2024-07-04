@@ -29,6 +29,11 @@ class _SearchInputState extends State<SearchInput> {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      autocorrect: false,
+      textInputAction: TextInputAction.search,
+      onSubmitted: (text) {
+        widget.onSearchClick(text);
+      },
       controller: textController,
       onChanged: (text) {
         widget.onSearchClick(text);

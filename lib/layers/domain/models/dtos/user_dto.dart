@@ -22,6 +22,6 @@ class UserDto {
       resume: map['bio'],
       avatarUrl: map['avatar_url'],
       location: map['location'],
-      followers: map['followers'],
-      repositories: map['public_repos']);
+      followers: map['followers']?.toString(),
+      repositories: map['public_repos']?.toString());
 }

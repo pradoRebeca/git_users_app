@@ -12,9 +12,8 @@ class FilterInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(
-          top: 18.0, 
-          // bottom: MediaQuery.of(context).viewInsets.bottom
-          ),
+        top: 18.0,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,

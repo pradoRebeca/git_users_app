@@ -13,26 +13,21 @@ class SearchUsersRepositoryImpl implements SearchUsersRepository {
       var response =
           await _searchUsersDatasource('/search/users?page=1&q=$search');
 
-      var data = response['items'];
-
-      // List<String> loginProfiles = [];
-
-      // for (var item in data) {
-      //   print("login ${item['login']}");
-      //   loginProfiles.add(item['login']);
-      // }
-
-      // var responses = await Future.wait(
-      //     loginProfiles.map((login) => _searchUsersDatasource('/users/$login')));
-
-      // List<UserDto> listUsers =
-      //     responses.map((user) => UserDto.fromMap(user)).toList();
+      final List<dynamic> data = response['items'];
 
       List<UserDto> listUsers = [];
 
-      for (var item in data) {
-        listUsers.add(UserDto.fromMap(item));
+      for (var user in data) {
+        listUsers.add(UserDto.fromMap(user));
       }
+
+      // for (var user in data) {
+      //   print("user ${user['login']}");
+
+      //   UserDto userDto = await getUserDetails(user['login']);
+
+      //   listUsers.add(userDto);
+      // }
 
       return listUsers;
     } catch (e) {
@@ -40,4 +35,16 @@ class SearchUsersRepositoryImpl implements SearchUsersRepository {
       rethrow;
     }
   }
+
+  // Future<UserDto> getUserDetails(String login) async {
+  //   print("login ${login}");
+
+  //   try {
+  //     var response = await _searchUsersDatasource('/users/pradoRebeca');
+  //     return UserDto.fromMap(response);
+  //   } catch (e) {
+  //     print("erro user ${e}");
+  //     rethrow;
+  //   }
+  // }
 }

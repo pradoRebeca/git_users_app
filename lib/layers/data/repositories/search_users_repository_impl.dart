@@ -1,4 +1,5 @@
 import 'package:git_users_app/layers/data/datasources/search_users_datasource.dart';
+import 'package:git_users_app/layers/domain/models/dtos/search_dto.dart';
 import 'package:git_users_app/layers/domain/models/dtos/user_dto.dart';
 import 'package:git_users_app/layers/domain/repositories/search_users_repository.dart';
 
@@ -8,10 +9,32 @@ class SearchUsersRepositoryImpl implements SearchUsersRepository {
   final SearchUsersDatasource _searchUsersDatasource;
 
   @override
-  Future<List<UserDto>> call(String search) async {
+  Future<List<UserDto>> call(QuerySearchDto query) async {
     try {
+      var search = 'q=';
+
+      if (query.query != null) {
+        search += query.query!;
+      }
+
+      if (query.followers != null) {
+        search += '+followers:${query.followers}';
+      }
+
+      if (query.repositories != null) {
+        search += '+repos:${query.repositories}';
+      }
+
+      if (query.language != null) {
+        search += '+language:${query.language}';
+      }
+
+      if (query.location != null) {
+        search += '+location:${query.location}';
+      }
+
       var response =
-          await _searchUsersDatasource('/search/users?page=1&q=$search');
+          await _searchUsersDatasource('/search/users?page=1&$search');
 
       final List<dynamic> data = response['items'];
 
@@ -21,30 +44,11 @@ class SearchUsersRepositoryImpl implements SearchUsersRepository {
         listUsers.add(UserDto.fromMap(user));
       }
 
-      // for (var user in data) {
-      //   print("user ${user['login']}");
-
-      //   UserDto userDto = await getUserDetails(user['login']);
-
-      //   listUsers.add(userDto);
-      // }
-
       return listUsers;
     } catch (e) {
       print("teste error $e");
-      rethrow;
+
+      throw Exception();
     }
   }
-
-  // Future<UserDto> getUserDetails(String login) async {
-  //   print("login ${login}");
-
-  //   try {
-  //     var response = await _searchUsersDatasource('/users/pradoRebeca');
-  //     return UserDto.fromMap(response);
-  //   } catch (e) {
-  //     print("erro user ${e}");
-  //     rethrow;
-  //   }
-  // }
 }

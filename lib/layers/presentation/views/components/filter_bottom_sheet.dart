@@ -1,10 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:git_users_app/layers/domain/models/dtos/search_dto.dart';
 import 'package:git_users_app/layers/presentation/views/components/divider_line.dart';
 import 'package:git_users_app/layers/presentation/views/components/filter_input.dart';
 
-class FilterBottomSheet extends StatelessWidget {
-  const FilterBottomSheet({super.key});
+class FilterBottomSheet extends StatefulWidget {
+  const FilterBottomSheet({
+    super.key,
+    required this.onPressed,
+  });
+
+  final Function onPressed;
+
+  @override
+  State<FilterBottomSheet> createState() => _FilterBottomSheetState();
+}
+
+class _FilterBottomSheetState extends State<FilterBottomSheet> {
+  String? location;
+  String? language;
+  int? followers;
+  int? repositories;
 
   @override
   Widget build(BuildContext context) {
@@ -27,17 +43,39 @@ class FilterBottomSheet extends StatelessWidget {
                 Expanded(
                     child: ListView(
                   children: [
-                    const FilterInput(
-                        icon: Icons.location_on_outlined, label: 'Localização'),
-                    const FilterInput(
-                        icon: Icons.code, label: 'Linguagem de programação'),
-                    const FilterInput(
+                    FilterInput(
+                        onChangeText: (text) {
+                          if (text != null) {
+                            setState(() => location = text);
+                          }
+                        },
+                        icon: Icons.location_on_outlined,
+                        label: 'Localização'),
+                    FilterInput(
+                        onChangeText: (text) {
+                          if (text != null) {
+                            setState(() => language = text);
+                          }
+                        },
+                        icon: Icons.code,
+                        label: 'Linguagem de programação'),
+                    FilterInput(
+                      onChangeText: (text) {
+                        if (text != null) {
+                          setState(() => followers = int.parse(text));
+                        }
+                      },
                       icon: Icons.group_outlined,
                       label: 'Número de Seguidores',
                       inputType: TextInputType.number,
                     ),
-                    const FilterInput(
-                        icon: Icons.location_on_outlined,
+                    FilterInput(
+                        onChangeText: (text) {
+                          if (text != null) {
+                            setState(() => repositories = int.parse(text));
+                          }
+                        },
+                        icon: Icons.folder_copy_outlined,
                         label: 'Número de Repositórios',
                         inputType: TextInputType.number),
                     Container(
@@ -45,7 +83,14 @@ class FilterBottomSheet extends StatelessWidget {
                             top: 20, bottom: isKeyboardVisible ? 260 : 20),
                         width: double.infinity,
                         child: ElevatedButton(
-                            onPressed: () => Navigator.pop(context),
+                            onPressed: () {
+                              Navigator.pop(context);
+                              widget.onPressed(QuerySearchDto(
+                                  followers: followers,
+                                  repositories: repositories,
+                                  language: language,
+                                  location: location));
+                            },
                             child: const Text(
                               'Aplicar Filtro',
                               style: TextStyle(color: Colors.white),

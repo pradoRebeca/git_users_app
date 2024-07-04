@@ -1,15 +1,17 @@
-class SearchDto {
-  SearchDto({
-    required this.query,
+class QuerySearchDto {
+  QuerySearchDto({
+    this.query,
     this.location,
     this.language,
     this.followers,
     this.repositories,
   });
 
-  final String query;
-  final String? location;
-  final String? language;
-  final int? followers;
-  final int? repositories;
+  String? query;
+  String? location;
+  String? language;
+  int? followers;
+  int? repositories;
+
+  void setQuery(String? query) {}
 }

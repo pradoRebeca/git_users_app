@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SearchInput extends StatefulWidget {
-  const SearchInput({
-    super.key,
-    required this.onSearchClick,
-  });
+  const SearchInput({super.key, required this.onSearchClick});
 
   final Function onSearchClick;
 
@@ -26,18 +23,20 @@ class _SearchInputState extends State<SearchInput> {
     });
   }
 
+  void submitted(String text) {
+    if (text.isNotEmpty) {
+      widget.onSearchClick(text);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: textController,
       autocorrect: false,
       textInputAction: TextInputAction.search,
-      onSubmitted: (text) {
-        widget.onSearchClick(text);
-      },
-      controller: textController,
-      onChanged: (text) {
-        widget.onSearchClick(text);
-      },
+      onSubmitted: (text) => submitted(text),
+      onChanged: (text) => submitted(text),
       decoration: InputDecoration(
         prefixIcon: Icon(
           Icons.search,

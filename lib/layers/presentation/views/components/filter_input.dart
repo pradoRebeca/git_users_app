@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 
 class FilterInput extends StatelessWidget {
-  const FilterInput(
-      {super.key, required this.icon, required this.label, this.inputType});
+  const FilterInput({
+    super.key,
+    required this.onChangeText,
+    required this.icon,
+    required this.label,
+    this.inputType,
+  });
 
   final IconData icon;
   final String label;
   final TextInputType? inputType;
+  final void Function(String?) onChangeText;
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +49,7 @@ class FilterInput extends StatelessWidget {
             ),
           ),
           TextField(
+            onChanged: onChangeText,
             keyboardType: inputType,
           )
         ],

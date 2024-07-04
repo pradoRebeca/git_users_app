@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 
 class HttpClientAdapter {
   HttpClientAdapter() {
-    client.options.baseUrl = 'https://api.github.com/search';
+    client.options.baseUrl = 'https://api.github.com';
     client.options.headers = {'Authorization': ''};
   }
 

@@ -12,6 +12,7 @@ class AppTheme {
     return ThemeData(
         useMaterial3: true,
         fontFamily: 'Poppins',
+        appBarTheme: const AppBarTheme(),
         colorScheme: const ColorScheme(
             brightness: Brightness.light,
             primary: darkPurple,

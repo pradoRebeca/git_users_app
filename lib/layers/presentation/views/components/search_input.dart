@@ -1,31 +1,50 @@
 import 'package:flutter/material.dart';
 
-import 'package:git_users_app/theme/app_theme.dart';
-
-class SearchInput extends StatelessWidget {
-  SearchInput({
+class SearchInput extends StatefulWidget {
+  const SearchInput({
     super.key,
     required this.onSearchClick,
   });
 
   final Function onSearchClick;
 
-  // final SearchUserController searchUserController = Get.find();
+  @override
+  State<SearchInput> createState() => _SearchInputState();
+}
 
-  final TextEditingController textEditingController = TextEditingController();
+class _SearchInputState extends State<SearchInput> {
+  final TextEditingController textController = TextEditingController();
+  bool editingIsEmpty = false;
+
+  @override
+  void initState() {
+    super.initState();
+    textController.addListener(() {
+      setState(() {
+        editingIsEmpty = textController.text.isNotEmpty;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return TextField(
-      controller: textEditingController,
+      controller: textController,
+      onChanged: (text) {
+        widget.onSearchClick(text);
+      },
       decoration: InputDecoration(
-        prefixIcon: const Icon(
-          Icons.cancel_outlined,
-          color: AppTheme.lightBlack,
+        prefixIcon: Icon(
+          Icons.search,
+          color: Theme.of(context).colorScheme.onPrimaryContainer,
         ),
-        suffixIcon: IconButton(
-            onPressed: () => onSearchClick(textEditingController.text),
-            icon: const Icon(Icons.search)),
+        suffixIcon: editingIsEmpty
+            ? IconButton(
+                onPressed: () => textController.clear(),
+                icon: const Icon(Icons.cancel_outlined),
+                color: Theme.of(context).colorScheme.onPrimaryContainer,
+              )
+            : null,
       ),
     );
   }

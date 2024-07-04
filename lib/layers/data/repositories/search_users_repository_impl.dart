@@ -10,18 +10,33 @@ class SearchUsersRepositoryImpl implements SearchUsersRepository {
   @override
   Future<List<UserDto>> call(String search) async {
     try {
-      var response = await _searchUsersDatasource('/users?page=1&q=$search');
+      var response =
+          await _searchUsersDatasource('/search/users?page=1&q=$search');
 
       var data = response['items'];
 
+      // List<String> loginProfiles = [];
+
+      // for (var item in data) {
+      //   print("login ${item['login']}");
+      //   loginProfiles.add(item['login']);
+      // }
+
+      // var responses = await Future.wait(
+      //     loginProfiles.map((login) => _searchUsersDatasource('/users/$login')));
+
+      // List<UserDto> listUsers =
+      //     responses.map((user) => UserDto.fromMap(user)).toList();
+
       List<UserDto> listUsers = [];
 
-      for (var user in data) {
-        listUsers.add(UserDto.fromMap(user));
+      for (var item in data) {
+        listUsers.add(UserDto.fromMap(item));
       }
 
       return listUsers;
     } catch (e) {
+      print("teste error $e");
       rethrow;
     }
   }

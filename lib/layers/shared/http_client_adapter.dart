@@ -4,7 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 class HttpClientAdapter {
   HttpClientAdapter() {
     client.options.baseUrl = 'https://api.github.com';
-    client.options.headers = {'Authorization': dotenv.env['GH_TOKEN']};
+    client.options.headers = {'Authorization': dotenv.env['TOKEN']};
   }
 
   final client = Dio();

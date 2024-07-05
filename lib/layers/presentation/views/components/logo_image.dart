@@ -9,7 +9,7 @@ class LogoImage extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(13.0),
       child: Image.asset(
-        'assets/images/logo/logo_purple.png',
+        'assets/images/logo_purple.png',
         fit: BoxFit.contain,
       ),
     );

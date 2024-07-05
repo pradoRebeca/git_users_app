@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:git_users_app/layers/domain/models/dtos/search_dto.dart';
 import 'package:git_users_app/layers/presentation/controller/search_controller.dart';
-import 'package:git_users_app/layers/presentation/views/components/chip_filter.dart';
 import 'package:git_users_app/layers/presentation/views/components/divider_line.dart';
 import 'package:git_users_app/layers/presentation/views/components/filter_bottom_sheet.dart';
 import 'package:git_users_app/layers/presentation/views/components/logo_image.dart';
+import 'package:git_users_app/layers/presentation/views/components/not_found_card.dart';
 import 'package:git_users_app/layers/presentation/views/components/profile_card.dart';
 import 'package:git_users_app/layers/presentation/views/components/search_input.dart';
 import 'package:git_users_app/layers/presentation/views/components/tittle_card.dart';
@@ -19,8 +19,6 @@ class SearchScreen extends StatelessWidget {
   void search(QuerySearchDto query) {
     searchUserController.search(query);
   }
-
-  void onClear() {}
 
   @override
   Widget build(BuildContext context) {
@@ -59,55 +57,33 @@ class SearchScreen extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-                padding: const EdgeInsets.only(top: 20.0),
+                padding: const EdgeInsets.symmetric(vertical: 20),
                 child: SearchInput(
                   onSearchClick: (String query) =>
                       search(QuerySearchDto(query: query)),
                 )),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 30, top: 15),
-              child: SizedBox(
-                height: 40,
-                child: Obx(
-                  () => ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      if (searchUserController.location.value != null)
-                        ChipFilter(
-                          icon: Icons.location_on_outlined,
-                          label: searchUserController.location.value!,
-                        ),
-                      if (searchUserController.language.value != null)
-                        ChipFilter(
-                          icon: Icons.code,
-                          label: searchUserController.language.value!,
-                        ),
-                      if (searchUserController.repositories.value != null)
-                        ChipFilter(
-                          icon: Icons.code,
-                          label: searchUserController.repositories.value
-                              .toString(),
-                        ),
-                      if (searchUserController.followers.value != null)
-                        ChipFilter(
-                          icon: Icons.code,
-                          label:
-                              searchUserController.followers.value.toString(),
-                        ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
             const DividerLine(),
-            Expanded(
-                child: Obx(
-              () => ListView.builder(
-                itemCount: searchUserController.users.length,
-                itemBuilder: (context, index) => ProfileCard(
-                  user: searchUserController.users[index],
-                ),
-              ),
+            Expanded(child: Obx(
+              () {
+                if (searchUserController.isLoading.value == false) {
+                  if (searchUserController.users.isNotEmpty) {
+                    return ListView.builder(
+                      itemCount: searchUserController.users.length,
+                      itemBuilder: (context, index) => ProfileCard(
+                        user: searchUserController.users[index],
+                      ),
+                    );
+                  }
+
+                  return const Center(
+                    child: NotFoundCard(),
+                  );
+                }
+
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              },
             )),
           ],
         ),

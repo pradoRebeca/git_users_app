@@ -19,114 +19,21 @@ class ProfileCard extends StatelessWidget {
             border: Border.all(
                 color: Theme.of(context).colorScheme.onPrimaryContainer,
                 width: 1)),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: ImageProfileCard(
-                    urlImage: user.avatarUrl,
-                  ),
-                ),
-                Flexible(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      if (user.name != null && user.name!.isNotEmpty)
-                        Text(
-                          user.name!,
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                      Text(
-                        user.userLogin,
-                        style: Theme.of(context).textTheme.bodyMedium?.merge(
-                            TextStyle(
-                                color: Theme.of(context).colorScheme.primary)),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-            if (user.resume != null && user.resume!.isNotEmpty)
-              Padding(
-                padding: const EdgeInsets.only(top: 10.0),
-                child: Text(user.resume!,
-                    maxLines: 3, overflow: TextOverflow.ellipsis),
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: ImageProfileCard(
+                urlImage: user.avatarUrl,
               ),
-            Wrap(
-              direction: Axis.horizontal,
-              // spacing: 18,
-              children: [
-                if (user.location != null && user.location!.isNotEmpty)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10, right: 18),
-                    child: Text(
-                      user.location!,
-                      style: TextStyle(
-                          color:
-                              Theme.of(context).colorScheme.onPrimaryContainer),
-                    ),
-                  ),
-                if (user.repositories != null && user.repositories!.isNotEmpty)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10.0, right: 18),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: 5.0),
-                          child: Icon(
-                            Icons.folder_copy,
-                            size: 15,
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onPrimaryContainer,
-                          ),
-                        ),
-                        Text(
-                          user.repositories!,
-                          style: TextStyle(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .onPrimaryContainer),
-                        )
-                      ],
-                    ),
-                  ),
-                if (user.followers != null && user.followers!.isNotEmpty)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: 5.0),
-                          child: Icon(
-                            Icons.group,
-                            size: 15,
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onPrimaryContainer,
-                          ),
-                        ),
-                        Text(
-                          user.followers!,
-                          style: TextStyle(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .onPrimaryContainer),
-                        )
-                      ],
-                    ),
-                  ),
-              ],
-            )
+            ),
+            Flexible(
+              child: Text(
+                user.login,
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            ),
           ],
         ),
       ),

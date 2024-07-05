@@ -5,13 +5,14 @@ import 'package:git_users_app/layers/domain/usecases/search_users_usecase.dart';
 
 class SearchUserController extends GetxController {
   SearchUserController(this._searchUsersUsecase);
+
   final SearchUsersUsecase _searchUsersUsecase;
 
-  var query = Rx<QuerySearchDto>(QuerySearchDto());
+  var isLoading = false.obs;
 
   var users = <UserDto>[].obs;
 
-  var searchQuery = RxnString();
+  var query = RxnString();
   var location = RxnString();
   var language = RxnString();
   var followers = RxnInt();
@@ -20,7 +21,7 @@ class SearchUserController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    debounce(searchQuery, (String? query) {
+    debounce(query, (String? query) {
       search(QuerySearchDto(query: query));
     }, time: const Duration(milliseconds: 500));
   }
@@ -43,26 +44,30 @@ class SearchUserController extends GetxController {
     }
 
     if (querySearch.query != null) {
-      searchQuery.value = querySearch.query!;
+      query.value = querySearch.query!;
     }
 
     getUsers();
   }
 
   Future<void> getUsers() async {
-    final QuerySearchDto query = QuerySearchDto(
+    isLoading.value = true;
+
+    final QuerySearchDto querySearchDto = QuerySearchDto(
         location: location.value,
         language: language.value,
         followers: followers.value,
-        query: searchQuery.value,
+        query: query.value,
         repositories: repositories.value);
 
-    var response = await _searchUsersUsecase(query);
+    var response = await _searchUsersUsecase(querySearchDto);
 
     if (!response.success) {
       return;
     }
 
     users.assignAll(response.body as List<UserDto>);
+
+    isLoading.value = false;
   }
 }

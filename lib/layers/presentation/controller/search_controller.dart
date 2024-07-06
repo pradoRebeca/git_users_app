@@ -1,16 +1,22 @@
 import 'package:get/get.dart';
+import 'package:get/get_rx/src/rx_workers/utils/debouncer.dart';
 import 'package:git_users_app/layers/domain/models/dtos/search_dto.dart';
 import 'package:git_users_app/layers/domain/models/dtos/user_dto.dart';
-import 'package:git_users_app/layers/domain/usecases/search_users_usecase.dart';
+import 'package:git_users_app/layers/domain/usecases/search_users/search_users_usecase.dart';
+import 'package:git_users_app/layers/presentation/controller/history_controller.dart';
 
 class SearchUserController extends GetxController {
-  SearchUserController(this._searchUsersUsecase);
+  SearchUserController(this._searchUsersUsecase, this._historyController);
 
   final SearchUsersUsecase _searchUsersUsecase;
+  final HistoryController _historyController;
 
   var isLoading = false.obs;
   var users = <UserDto>[].obs;
   var querySearch = QuerySearchDto().obs;
+
+  final Debouncer _debouncer =
+      Debouncer(delay: const Duration(milliseconds: 500));
 
   void onClearFilter(QuerySearchDto querySearch) {
     _updateQuerySearchDto(QuerySearchDto(
@@ -25,7 +31,8 @@ class SearchUserController extends GetxController {
 
   void search(QuerySearchDto querySearch) {
     _updateQuerySearchDto(querySearch);
-    getUsers();
+
+    _debouncer.call(getUsers);
   }
 
   void _updateQuerySearchDto(QuerySearchDto querySearchDto) {
@@ -42,6 +49,8 @@ class SearchUserController extends GetxController {
     isLoading.value = true;
 
     var response = await _searchUsersUsecase(querySearch.value);
+
+    _historyController.add(querySearch.value);
 
     if (response.success) {
       users.assignAll(response.body as List<UserDto>);

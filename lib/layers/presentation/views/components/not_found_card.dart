@@ -7,11 +7,10 @@ class NotFoundCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 200,
-      width: 200,
+    return ConstrainedBox(
+      constraints: const BoxConstraints(maxHeight: 300, maxWidth: 300),
       child: SvgPicture.asset(
-        'assets/images/not_found.svg',
+        'assets/images/search.svg',
         fit: BoxFit.contain,
       ),
     );

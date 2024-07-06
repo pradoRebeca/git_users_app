@@ -13,7 +13,7 @@ class SearchUsersRepositoryImpl implements SearchUsersRepository {
     try {
       final search = _buildSearchQuery(querySearchDto);
 
-      print('search $search');
+      // print('query $search');
 
       var response =
           await _searchUsersDatasource('/search/users?page=1&$search');

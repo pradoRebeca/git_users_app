@@ -25,7 +25,7 @@ class SearchScreen extends StatelessWidget {
     searchUserController.onClearFilter(querySearchDto);
   }
 
-  void onPressedTune(BuildContext context) {
+  void _showFilterBottomSheet(BuildContext context) {
     showModalBottomSheet(
         isScrollControlled: true,
         context: context,
@@ -67,7 +67,7 @@ class SearchScreen extends StatelessWidget {
           IconButton(
             icon:
                 Icon(Icons.tune, color: Theme.of(context).colorScheme.primary),
-            onPressed: () => onPressedTune(context),
+            onPressed: () => _showFilterBottomSheet(context),
           ),
         ],
       ),
@@ -80,8 +80,10 @@ class SearchScreen extends StatelessWidget {
             Padding(
                 padding: const EdgeInsets.only(top: 20),
                 child: SearchInput(
-                  onSearchClick: (String query) =>
-                      search(QuerySearchDto(query: query)),
+                  onClear: (QuerySearchDto querySearchDto) =>
+                      onClearFilter(querySearchDto),
+                  onSearchClick: (QuerySearchDto querySearchDto) =>
+                      search(querySearchDto),
                 )),
             Obx(() {
               final querySearchDto = QuerySearchDto(

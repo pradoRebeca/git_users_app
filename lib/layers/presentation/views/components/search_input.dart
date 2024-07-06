@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:git_users_app/layers/domain/models/dtos/search_dto.dart';
 
 class SearchInput extends StatefulWidget {
-  const SearchInput({super.key, required this.onSearchClick});
+  const SearchInput({
+    super.key,
+    required this.onClear,
+    required this.onSearchClick,
+  });
 
-  final Function onSearchClick;
+  final void Function(QuerySearchDto querySearchDto) onClear;
+  final void Function(QuerySearchDto querySearchDto) onSearchClick;
 
   @override
   State<SearchInput> createState() => _SearchInputState();
@@ -25,8 +31,13 @@ class _SearchInputState extends State<SearchInput> {
 
   void submitted(String text) {
     if (text.isNotEmpty) {
-      widget.onSearchClick(text);
+      widget.onSearchClick(QuerySearchDto(query: text));
     }
+  }
+
+  void onClearInput() {
+    widget.onClear(QuerySearchDto(query: ''));
+    textController.clear();
   }
 
   @override
@@ -44,7 +55,7 @@ class _SearchInputState extends State<SearchInput> {
         ),
         suffixIcon: !editingIsEmpty
             ? IconButton(
-                onPressed: () => textController.clear(),
+                onPressed: () => onClearInput(),
                 icon: const Icon(Icons.cancel_outlined),
                 color: Theme.of(context).colorScheme.onPrimaryContainer,
               )

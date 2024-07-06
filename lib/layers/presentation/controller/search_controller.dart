@@ -10,72 +10,38 @@ class SearchUserController extends GetxController {
 
   var isLoading = false.obs;
   var users = <UserDto>[].obs;
-
-  var query = RxnString();
-  var location = RxnString();
-  var language = RxnString();
-  var followers = RxnString();
-  var repositories = RxnString();
+  var querySearch = QuerySearchDto().obs;
 
   void onClearFilter(QuerySearchDto querySearch) {
-    if (querySearch.query != null) {
-      query.value = '';
-    }
-
-    if (querySearch.location != null) {
-      location.value = '';
-    }
-
-    if (querySearch.language != null) {
-      language.value = '';
-    }
-
-    if (querySearch.followers != null) {
-      followers.value = '';
-    }
-
-    if (querySearch.repositories != null) {
-      repositories.value = '';
-    }
-
+    _updateQuerySearchDto(QuerySearchDto(
+      query: querySearch.query != null ? '' : null,
+      location: querySearch.location != null ? '' : null,
+      language: querySearch.language != null ? '' : null,
+      followers: querySearch.followers != null ? '' : null,
+      repositories: querySearch.repositories != null ? '' : null,
+    ));
     getUsers();
   }
 
   void search(QuerySearchDto querySearch) {
-    if (querySearch.query != null) {
-      query.value = querySearch.query;
-    }
-
-    if (querySearch.location != null) {
-      location.value = querySearch.location;
-    }
-
-    if (querySearch.language != null) {
-      language.value = querySearch.language;
-    }
-
-    if (querySearch.followers != null) {
-      followers.value = querySearch.followers;
-    }
-
-    if (querySearch.repositories != null) {
-      repositories.value = querySearch.repositories;
-    }
-
+    _updateQuerySearchDto(querySearch);
     getUsers();
+  }
+
+  void _updateQuerySearchDto(QuerySearchDto querySearchDto) {
+    querySearch.update((dto) {
+      dto?.query = querySearchDto.query ?? dto.query;
+      dto?.location = querySearchDto.location ?? dto.location;
+      dto?.language = querySearchDto.language ?? dto.language;
+      dto?.followers = querySearchDto.followers ?? dto.followers;
+      dto?.repositories = querySearchDto.repositories ?? dto.repositories;
+    });
   }
 
   Future<void> getUsers() async {
     isLoading.value = true;
 
-    final QuerySearchDto querySearchDto = QuerySearchDto(
-        location: location.value,
-        language: language.value,
-        followers: followers.value,
-        query: query.value,
-        repositories: repositories.value);
-
-    var response = await _searchUsersUsecase(querySearchDto);
+    var response = await _searchUsersUsecase(querySearch.value);
 
     if (response.success) {
       users.assignAll(response.body as List<UserDto>);

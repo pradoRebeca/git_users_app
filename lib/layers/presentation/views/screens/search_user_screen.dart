@@ -17,35 +17,17 @@ class SearchScreen extends StatelessWidget {
   final SearchUserController searchUserController =
       Get.find<SearchUserController>();
 
-  void search(QuerySearchDto querySearchDto) {
-    searchUserController.search(querySearchDto);
-  }
-
-  void onClearFilter(QuerySearchDto querySearchDto) {
-    searchUserController.onClearFilter(querySearchDto);
-  }
-
   void _showFilterBottomSheet(BuildContext context) {
     showModalBottomSheet(
         isScrollControlled: true,
         context: context,
         builder: (context) {
           return GetBuilder<SearchUserController>(
-            builder: (controller) {
-              {
-                final querySearchDto = QuerySearchDto(
-                    location: searchUserController.location.value,
-                    language: searchUserController.language.value,
-                    repositories: searchUserController.repositories.value,
-                    followers: searchUserController.followers.value);
-
-                return FilterBottomSheet(
-                  querySearchDto: querySearchDto,
-                  onPressed: (QuerySearchDto query) => search(query),
-                );
-              }
-            },
-          );
+              builder: (controller) => FilterBottomSheet(
+                    querySearchDto: searchUserController.querySearch.value,
+                    onPressed: (QuerySearchDto query) =>
+                        searchUserController.search(query),
+                  ));
         });
   }
 
@@ -81,23 +63,15 @@ class SearchScreen extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 20),
                 child: SearchInput(
                   onClear: (QuerySearchDto querySearchDto) =>
-                      onClearFilter(querySearchDto),
+                      searchUserController.onClearFilter(querySearchDto),
                   onSearchClick: (QuerySearchDto querySearchDto) =>
-                      search(querySearchDto),
+                      searchUserController.search(querySearchDto),
                 )),
-            Obx(() {
-              final querySearchDto = QuerySearchDto(
-                  location: searchUserController.location.value,
-                  language: searchUserController.language.value,
-                  repositories: searchUserController.repositories.value,
-                  followers: searchUserController.followers.value);
-
-              return FilterChipCard(
-                querySearchDto: querySearchDto,
-                onClear: (QuerySearchDto querySearchDto) =>
-                    onClearFilter(querySearchDto),
-              );
-            }),
+            Obx(() => FilterChipCard(
+                  querySearchDto: searchUserController.querySearch.value,
+                  onClear: (QuerySearchDto querySearchDto) =>
+                      searchUserController.onClearFilter(querySearchDto),
+                )),
             const DividerLine(),
             Expanded(child: Obx(
               () {

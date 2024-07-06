@@ -10,8 +10,8 @@ class QuerySearchDto {
   String? query;
   String? location;
   String? language;
-  int? followers;
-  int? repositories;
+  String? followers;
+  String? repositories;
 
   void setQuery(String? query) {}
 }

@@ -11,14 +11,14 @@ class SearchInput extends StatefulWidget {
 
 class _SearchInputState extends State<SearchInput> {
   final TextEditingController textController = TextEditingController();
-  bool editingIsEmpty = false;
+  bool editingIsEmpty = true;
 
   @override
   void initState() {
     super.initState();
     textController.addListener(() {
       setState(() {
-        editingIsEmpty = textController.text.isNotEmpty;
+        editingIsEmpty = textController.text.isEmpty;
       });
     });
   }
@@ -42,7 +42,7 @@ class _SearchInputState extends State<SearchInput> {
           Icons.search,
           color: Theme.of(context).colorScheme.onPrimaryContainer,
         ),
-        suffixIcon: editingIsEmpty
+        suffixIcon: !editingIsEmpty
             ? IconButton(
                 onPressed: () => textController.clear(),
                 icon: const Icon(Icons.cancel_outlined),

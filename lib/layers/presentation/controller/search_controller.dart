@@ -9,42 +9,57 @@ class SearchUserController extends GetxController {
   final SearchUsersUsecase _searchUsersUsecase;
 
   var isLoading = false.obs;
-
   var users = <UserDto>[].obs;
 
   var query = RxnString();
   var location = RxnString();
   var language = RxnString();
-  var followers = RxnInt();
-  var repositories = RxnInt();
+  var followers = RxnString();
+  var repositories = RxnString();
 
-  @override
-  void onInit() {
-    super.onInit();
-    debounce(query, (String? query) {
-      search(QuerySearchDto(query: query));
-    }, time: const Duration(milliseconds: 500));
-  }
+  void onClearFilter(QuerySearchDto querySearch) {
+    if (querySearch.query != null) {
+      query.value = '';
+    }
 
-  void search(QuerySearchDto querySearch) {
     if (querySearch.location != null) {
-      location.value = querySearch.location!;
+      location.value = '';
     }
 
     if (querySearch.language != null) {
-      language.value = querySearch.language!;
+      language.value = '';
     }
 
     if (querySearch.followers != null) {
-      followers.value = querySearch.followers!;
+      followers.value = '';
     }
 
     if (querySearch.repositories != null) {
-      repositories.value = querySearch.repositories!;
+      repositories.value = '';
     }
 
+    getUsers();
+  }
+
+  void search(QuerySearchDto querySearch) {
     if (querySearch.query != null) {
-      query.value = querySearch.query!;
+      query.value = querySearch.query;
+    }
+
+    if (querySearch.location != null) {
+      location.value = querySearch.location;
+    }
+
+    if (querySearch.language != null) {
+      language.value = querySearch.language;
+    }
+
+    if (querySearch.followers != null) {
+      followers.value = querySearch.followers;
+    }
+
+    if (querySearch.repositories != null) {
+      repositories.value = querySearch.repositories;
     }
 
     getUsers();
@@ -62,11 +77,11 @@ class SearchUserController extends GetxController {
 
     var response = await _searchUsersUsecase(querySearchDto);
 
-    if (!response.success) {
-      return;
+    if (response.success) {
+      users.assignAll(response.body as List<UserDto>);
+    } else {
+      users.clear();
     }
-
-    users.assignAll(response.body as List<UserDto>);
 
     isLoading.value = false;
   }

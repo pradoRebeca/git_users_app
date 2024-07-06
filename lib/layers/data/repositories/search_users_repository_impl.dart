@@ -9,46 +9,46 @@ class SearchUsersRepositoryImpl implements SearchUsersRepository {
   final SearchUsersDatasource _searchUsersDatasource;
 
   @override
-  Future<List<UserDto>> call(QuerySearchDto query) async {
+  Future<List<UserDto>> call(QuerySearchDto querySearchDto) async {
     try {
-      var search = 'q=';
+      final search = _buildSearchQuery(querySearchDto);
 
-      if (query.query != null) {
-        search += query.query!;
-      }
-
-      if (query.followers != null) {
-        search += '+followers:${query.followers}';
-      }
-
-      if (query.repositories != null) {
-        search += '+repos:${query.repositories}';
-      }
-
-      if (query.language != null) {
-        search += '+language:${query.language}';
-      }
-
-      if (query.location != null) {
-        search += '+location:${query.location}';
-      }
+      print('search $search');
 
       var response =
           await _searchUsersDatasource('/search/users?page=1&$search');
 
       final List<dynamic> data = response['items'];
 
-      List<UserDto> listUsers = [];
-
-      for (var user in data) {
-        listUsers.add(UserDto.fromMap(user));
-      }
-
-      return listUsers;
+      return data.map((user) => UserDto.fromMap(user)).toList();
     } catch (e) {
-      print("teste error $e");
-
-      throw Exception();
+      rethrow;
     }
+  }
+
+  String _buildSearchQuery(QuerySearchDto querySearchDto) {
+    final buffer = StringBuffer('q=');
+
+    if (querySearchDto.query?.isNotEmpty ?? false) {
+      buffer.write(querySearchDto.query);
+    }
+
+    if (querySearchDto.language?.isNotEmpty ?? false) {
+      buffer.write('+language:${querySearchDto.language}');
+    }
+
+    if (querySearchDto.location?.isNotEmpty ?? false) {
+      buffer.write('+location:${querySearchDto.location}');
+    }
+
+    if (querySearchDto.followers?.isNotEmpty ?? false) {
+      buffer.write('+followers:${querySearchDto.followers}');
+    }
+
+    if (querySearchDto.repositories?.isNotEmpty ?? false) {
+      buffer.write('+repos:${querySearchDto.repositories}');
+    }
+
+    return buffer.toString();
   }
 }

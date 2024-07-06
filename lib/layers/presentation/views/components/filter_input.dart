@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class FilterInput extends StatelessWidget {
   const FilterInput({
     super.key,
-    required this.onChangeText,
+    required this.filterController,
     required this.icon,
     required this.label,
     this.inputType,
@@ -12,7 +12,7 @@ class FilterInput extends StatelessWidget {
   final IconData icon;
   final String label;
   final TextInputType? inputType;
-  final void Function(String?) onChangeText;
+  final TextEditingController filterController;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,7 @@ class FilterInput extends StatelessWidget {
             ),
           ),
           TextField(
-            onChanged: onChangeText,
+            controller: filterController,
             keyboardType: inputType,
           )
         ],

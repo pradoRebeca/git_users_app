@@ -8,19 +8,58 @@ class FilterBottomSheet extends StatefulWidget {
   const FilterBottomSheet({
     super.key,
     required this.onPressed,
+    required this.querySearchDto,
   });
 
-  final Function onPressed;
+  final QuerySearchDto querySearchDto;
+  final void Function(QuerySearchDto querySearchDto) onPressed;
 
   @override
   State<FilterBottomSheet> createState() => _FilterBottomSheetState();
 }
 
 class _FilterBottomSheetState extends State<FilterBottomSheet> {
-  String? location;
-  String? language;
-  int? followers;
-  int? repositories;
+  late TextEditingController _locationController;
+  late TextEditingController _languageController;
+  late TextEditingController _followersController;
+  late TextEditingController _repositoriesController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _locationController =
+        TextEditingController(text: widget.querySearchDto.location);
+
+    _languageController =
+        TextEditingController(text: widget.querySearchDto.language);
+
+    _followersController = TextEditingController(
+      text: widget.querySearchDto.followers,
+    );
+
+    _repositoriesController =
+        TextEditingController(text: widget.querySearchDto.repositories);
+  }
+
+  @override
+  void dispose() {
+    _locationController.dispose();
+    _languageController.dispose();
+    _followersController.dispose();
+    _repositoriesController.dispose();
+    super.dispose();
+  }
+
+  void _applyFilters(BuildContext context) {
+    Navigator.pop(context);
+
+    widget.onPressed(QuerySearchDto(
+        followers: _followersController.text,
+        repositories: _repositoriesController.text,
+        language: _languageController.text,
+        location: _locationController.text));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,53 +83,30 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                     child: ListView(
                   children: [
                     FilterInput(
-                        onChangeText: (text) {
-                          if (text != null) {
-                            setState(() => location = text);
-                          }
-                        },
+                        filterController: _locationController,
                         icon: Icons.location_on_outlined,
-                        label: 'Localização'),
+                        label: 'Location'),
                     FilterInput(
-                        onChangeText: (text) {
-                          if (text != null) {
-                            setState(() => language = text);
-                          }
-                        },
+                        filterController: _languageController,
                         icon: Icons.code,
-                        label: 'Linguagem de programação'),
+                        label: 'Language'),
                     FilterInput(
-                      onChangeText: (text) {
-                        if (text != null) {
-                          setState(() => followers = int.parse(text));
-                        }
-                      },
+                      filterController: _followersController,
                       icon: Icons.group_outlined,
-                      label: 'Número de Seguidores',
+                      label: 'Followers',
                       inputType: TextInputType.number,
                     ),
                     FilterInput(
-                        onChangeText: (text) {
-                          if (text != null) {
-                            setState(() => repositories = int.parse(text));
-                          }
-                        },
+                        filterController: _repositoriesController,
                         icon: Icons.folder_copy_outlined,
-                        label: 'Número de Repositórios',
+                        label: 'Repositories',
                         inputType: TextInputType.number),
                     Container(
                         padding: EdgeInsets.only(
                             top: 20, bottom: isKeyboardVisible ? 260 : 20),
                         width: double.infinity,
                         child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                              widget.onPressed(QuerySearchDto(
-                                  followers: followers,
-                                  repositories: repositories,
-                                  language: language,
-                                  location: location));
-                            },
+                            onPressed: () => _applyFilters(context),
                             child: const Text(
                               'Aplicar Filtro',
                               style: TextStyle(color: Colors.white),

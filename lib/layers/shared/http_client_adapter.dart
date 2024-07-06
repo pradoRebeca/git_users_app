@@ -3,7 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class HttpClientAdapter {
   HttpClientAdapter() {
-    client.options.baseUrl = 'https://api.github.com';
+    client.options.baseUrl = dotenv.env['BASE_URL'] ?? 'https://api.github.com';
     client.options.headers = {'Authorization': dotenv.env['TOKEN']};
   }
 

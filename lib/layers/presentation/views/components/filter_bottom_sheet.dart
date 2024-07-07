@@ -89,17 +89,17 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                     FilterInput(
                         filterController: _languageController,
                         icon: Icons.code,
-                        label: 'Language'),
+                        label: 'Repository Language'),
                     FilterInput(
                       filterController: _followersController,
                       icon: Icons.group_outlined,
-                      label: 'Followers',
+                      label: 'Min of Followers',
                       inputType: TextInputType.number,
                     ),
                     FilterInput(
                         filterController: _repositoriesController,
                         icon: Icons.folder_copy_outlined,
-                        label: 'Repositories',
+                        label: 'Min of Repositories',
                         inputType: TextInputType.number),
                     Container(
                         padding: EdgeInsets.only(

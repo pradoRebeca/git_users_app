@@ -1,16 +1,20 @@
-# git_users_app
+# Git Users APP
+O projeto que permite fazer as busca pro usuários do GitHub
 
-A new Flutter project.
 
-## Getting Started
+## ✨Funcionalidades do projeto
+- Pesquisa os usuários do GitHub;
+- Filtro de pesuisa por: Número mínimo de repositórios, número mínimo de seguidores, localização e linguagem utilizada no repositório;
+- Histório das pesuisas contendo data e horário; 
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## 🛠️ Abrir e rodar o projeto
+Aqui vem um passo a passo para abrir e rodar o projeto.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Open an Existing Project (ou alguma opção similar)
+- Procure o local onde o projeto está e o selecione (Caso o projeto seja baixado via zip, é necessário extraí-lo antes de procurá-lo)
+- Por fim clique em OK
+- Depois basta rodar o comando flutter run na pasta do projeto
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+

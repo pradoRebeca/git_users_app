@@ -1,10 +1,10 @@
 # Git Users APP
-O projeto que permite fazer as busca pro usuários do GitHub
+O projeto que permite fazer buscas pro usuários do GitHub
 
 
 ## ✨Funcionalidades do projeto
 - Pesquisa os usuários do GitHub;
-- Filtro de pesuisa por: Número mínimo de repositórios, número mínimo de seguidores, localização e linguagem utilizada no repositório;
+- Filtro de pesuisa por: Número mínimo de repositórios, número mínimo de seguidores, localização e linguagem utilizada nos repositórios;
 - Histório das pesuisas contendo data e horário; 
 
 

@@ -1,6 +1,8 @@
 # Git Users APP
 O projeto que permite fazer buscas pro usuários do GitHub
 
+## Figma
+Acessar figma do projeto  [Figma](https://www.figma.com/design/6BSrwB0XAafEnaeQaMylR1/Git-Users?node-id=0-1)
 
 ## ✨Funcionalidades do projeto
 - Pesquisa os usuários do GitHub;

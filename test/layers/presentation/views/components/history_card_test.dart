@@ -12,12 +12,14 @@ void main() {
       dateTime: DateTime(2023, 7, 7, 12, 30),
     );
 
+    void mockOnClick(HistoryDto hstoryDto) {}
     // Act
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(
           body: HistoryCard(
             historyDto: historyDto,
+            onClick: mockOnClick,
           ),
         ),
       ),
@@ -36,12 +38,15 @@ void main() {
       dateTime: DateTime(2023, 7, 7, 12, 30),
     );
 
+    void mockOnClick(HistoryDto hstoryDto) {}
+
     // Act
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(
           body: HistoryCard(
             historyDto: historyDto,
+            onClick: mockOnClick,
           ),
         ),
       ),

@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:git_users_app/layers/domain/models/dtos/search_dto.dart';
 
 class SearchInput extends StatefulWidget {
-  const SearchInput({
-    super.key,
-    required this.onClear,
-    required this.onSearchClick,
-  });
+  const SearchInput(
+      {super.key,
+      required this.onClear,
+      required this.onSearchClick,
+      required this.initialText});
 
+  final String? initialText;
   final void Function(QuerySearchDto querySearchDto) onClear;
   final void Function(QuerySearchDto querySearchDto) onSearchClick;
 
@@ -16,16 +17,34 @@ class SearchInput extends StatefulWidget {
 }
 
 class _SearchInputState extends State<SearchInput> {
-  final TextEditingController textController = TextEditingController();
+  late TextEditingController _textController;
   bool editingIsEmpty = true;
 
   @override
   void initState() {
     super.initState();
-    textController.addListener(() {
-      setState(() {
-        editingIsEmpty = textController.text.isEmpty;
-      });
+    _textController = TextEditingController(text: widget.initialText);
+    _textController.addListener(_updateEditingState);
+  }
+
+  @override
+  void didUpdateWidget(covariant SearchInput oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.initialText != oldWidget.initialText) {
+      _textController.text = widget.initialText ?? '';
+      editingIsEmpty = _textController.text.isEmpty;
+    }
+  }
+
+  @override
+  void dispose() {
+    _textController.dispose();
+    super.dispose();
+  }
+
+  void _updateEditingState() {
+    setState(() {
+      editingIsEmpty = _textController.text.isEmpty;
     });
   }
 
@@ -37,13 +56,13 @@ class _SearchInputState extends State<SearchInput> {
 
   void onClearInput() {
     widget.onClear(QuerySearchDto(query: ''));
-    textController.clear();
+    _textController.clear();
   }
 
   @override
   Widget build(BuildContext context) {
     return TextField(
-      controller: textController,
+      controller: _textController,
       autocorrect: false,
       textInputAction: TextInputAction.search,
       onSubmitted: (text) => submitted(text),

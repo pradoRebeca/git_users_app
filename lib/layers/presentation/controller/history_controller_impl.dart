@@ -35,4 +35,9 @@ class HistoryControllerImpl extends GetxController
 
     histories.assignAll(response.body as List<HistoryDto>);
   }
+
+  @override
+  void searchHistory(HistoryDto historyDto) {
+    Get.back(result: historyDto.history);
+  }
 }

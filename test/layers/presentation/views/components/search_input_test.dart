@@ -18,6 +18,7 @@ void main() {
       MaterialApp(
         home: Scaffold(
           body: SearchInput(
+            initialText: 'teste',
             onClear: mockOnClear,
             onSearchClick: mockOnSearchClick,
           ),

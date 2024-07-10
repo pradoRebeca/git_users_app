@@ -46,7 +46,9 @@ class HistoryScreen extends StatelessWidget {
                     return ListView.builder(
                       itemCount: historyController.histories.length,
                       itemBuilder: (context, index) => HistoryCard(
-                          historyDto: historyController.histories[index]),
+                        historyDto: historyController.histories[index],
+                        onClick: historyController.searchHistory,
+                      ),
                     );
                   },
                 ),

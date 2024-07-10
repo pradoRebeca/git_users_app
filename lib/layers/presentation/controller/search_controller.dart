@@ -18,6 +18,16 @@ class SearchUserController extends GetxController {
   final Debouncer _debouncer =
       Debouncer(delay: const Duration(milliseconds: 500));
 
+  RxString parametroRota = RxString('');
+
+  void goHistoryScreen() async {
+    final hasHistory = await Get.toNamed('/history');
+
+    if (hasHistory != null) {
+      search(QuerySearchDto(query: hasHistory));
+    }
+  }
+
   void onClearFilter(QuerySearchDto querySearch) {
     _updateQuerySearchDto(QuerySearchDto(
       query: querySearch.query != null ? '' : null,
@@ -29,8 +39,9 @@ class SearchUserController extends GetxController {
     getUsers();
   }
 
-  void search(QuerySearchDto querySearch) {
-    _updateQuerySearchDto(querySearch);
+  void search(QuerySearchDto querySearchDto) {
+    _updateQuerySearchDto(querySearchDto);
+    print("teste 2 ${querySearch.value.query}");
 
     _debouncer.call(getUsers);
   }

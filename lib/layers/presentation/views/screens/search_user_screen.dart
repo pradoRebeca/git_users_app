@@ -44,7 +44,7 @@ class SearchScreen extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.history,
                 color: Theme.of(context).colorScheme.primary),
-            onPressed: () => Get.toNamed('/history'),
+            onPressed: () => searchUserController.goHistoryScreen(),
           ),
           IconButton(
             icon:
@@ -61,11 +61,14 @@ class SearchScreen extends StatelessWidget {
           children: [
             Padding(
                 padding: const EdgeInsets.only(top: 20),
-                child: SearchInput(
-                  onClear: (QuerySearchDto querySearchDto) =>
-                      searchUserController.onClearFilter(querySearchDto),
-                  onSearchClick: (QuerySearchDto querySearchDto) =>
-                      searchUserController.search(querySearchDto),
+                child: Obx(
+                  () => SearchInput(
+                    initialText: searchUserController.querySearch.value.query,
+                    onClear: (QuerySearchDto querySearchDto) =>
+                        searchUserController.onClearFilter(querySearchDto),
+                    onSearchClick: (QuerySearchDto querySearchDto) =>
+                        searchUserController.search(querySearchDto),
+                  ),
                 )),
             Obx(() => FilterChipCard(
                   querySearchDto: searchUserController.querySearch.value,

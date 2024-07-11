@@ -62,13 +62,18 @@ class SearchScreen extends StatelessWidget {
             Padding(
                 padding: const EdgeInsets.only(top: 20),
                 child: Obx(
-                  () => SearchInput(
-                    initialText: searchUserController.querySearch.value.query,
-                    onClear: (QuerySearchDto querySearchDto) =>
-                        searchUserController.onClearFilter(querySearchDto),
-                    onSearchClick: (QuerySearchDto querySearchDto) =>
-                        searchUserController.search(querySearchDto),
-                  ),
+                  () {
+                    print(
+                        'teste, ${searchUserController.querySearch.value.query}');
+
+                    return SearchInput(
+                      initialText: 'teste',
+                      onClear: (QuerySearchDto querySearchDto) =>
+                          searchUserController.onClearFilter(querySearchDto),
+                      onSearchClick: (QuerySearchDto querySearchDto) =>
+                          searchUserController.search(querySearchDto),
+                    );
+                  },
                 )),
             Obx(() => FilterChipCard(
                   querySearchDto: searchUserController.querySearch.value,

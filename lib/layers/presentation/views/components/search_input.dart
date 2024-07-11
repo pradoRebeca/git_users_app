@@ -24,6 +24,11 @@ class _SearchInputState extends State<SearchInput> {
   void initState() {
     super.initState();
     _textController = TextEditingController(text: widget.initialText);
+
+    if (widget.initialText != null && widget.initialText!.isNotEmpty) {
+      _updateEditingState();
+    }
+
     _textController.addListener(_updateEditingState);
   }
 
@@ -32,7 +37,7 @@ class _SearchInputState extends State<SearchInput> {
     super.didUpdateWidget(oldWidget);
     if (widget.initialText != oldWidget.initialText) {
       _textController.text = widget.initialText ?? '';
-      editingIsEmpty = _textController.text.isEmpty;
+      _updateEditingState();
     }
   }
 
